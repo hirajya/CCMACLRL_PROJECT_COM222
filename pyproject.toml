@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "heart-failure-prediction-svm"
+version = "0.1.0"
+description = ""
+authors = ["hirajya <rodneyestrada2425@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ipykernel = "^6.29.5"
+matplotlib = "^3.9.2"
+numpy = "^2.1.2"
+pandas = "^2.2.3"
+scikit-learn = "^1.5.2"
+seaborn = "^0.13.2"
+streamlit = "^1.39.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
