@@ -7,3 +7,6 @@ seaborn
 streamlit
 kaggle
 imblearn
+optuna
+hyperopt
+joblib
