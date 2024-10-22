@@ -1,10 +1,10 @@
 import streamlit as st
 import pandas as pd
-import joblib  # Use joblib instead of pickle
+import joblib  
 
 # Relative paths to the model and scaler from app.py
-MODEL_PATH = '../models/model/10-22-2024_0437PM_SVMmodel.pkl'
-SCALER_PATH = '../models/scaler/10-22-2024_0437PM_scaler.pkl'  # Update this path as needed
+MODEL_PATH = '../models/model/10-22-2024_1148PM_SVMmodel.pkl'
+SCALER_PATH = '../models/scaler/10-22-2024_1148PM_scaler.pkl'  # Update this path as needed
 
 # Load the model
 def load_model():
@@ -55,24 +55,33 @@ def main():
         'time': time
     }
 
+    # Print all the input values
+    print(user_input)
+
+    def predict_new_patient(scaler, svm_model, new_patient_data):
+        
+        # Scale the new data using the same scaler
+        new_data_scaled = scaler.transform(new_patient_data)
+
+        # Make predictions
+        predictions = svm_model.predict(new_data_scaled)
+
+        return predictions
+
     # Convert dictionary to DataFrame for prediction
     input_df = pd.DataFrame([user_input])
 
     # Load model and scaler
     model = load_model()
     scaler = load_scaler()
-
-    # Scale the input data
-    input_scaled = scaler.transform(input_df)
-
-    # Predict the outcome
+    
     if st.button("Predict"):
-        prediction = model.predict(input_scaled)  # Use the scaled input for prediction
+        prediction = predict_new_patient(scaler, model, input_df)  # Use the scaled input for prediction
+        print(prediction)
         result = "Heart Failure" if prediction[0] == 1 else "No Heart Failure"
         
         st.subheader("Prediction Result:")
         st.write(result)
 
-# Run the app
 if __name__ == "__main__":
     main()
