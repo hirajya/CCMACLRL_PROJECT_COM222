@@ -1,5 +1,11 @@
-format:
+format: FOR MODEL
 month-day-year_[time]_SVMmodel.pkl
 
 e.g.
-10-18-2024_10=27PM_SVMmodel.pkl
+10-18-2024_1027PM_SVMmodel.pkl
+
+format: FOR SCALAR
+month-day-year_[time]_scaler.pkl
+
+e.g.
+10-18-2024_1027PM_scaler.pkl
