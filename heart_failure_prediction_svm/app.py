@@ -2,9 +2,19 @@ import streamlit as st
 import pandas as pd
 import joblib  
 
-# Relative paths to the model and scaler from app.py
-MODEL_PATH = '../models/model/10-23-2024_1227AM_SVMmodel.pkl'
-SCALER_PATH = '../models/scaler/10-23-2024_1227AM_scaler.pkl'  # Update this path as needed
+# # Relative paths to the model and scaler from app.py
+# MODEL_PATH = '../models/model/10-23-2024_1227AM_SVMmodel.pkl'
+# SCALER_PATH = '../models/scaler/10-23-2024_1227AM_scaler.pkl'  # Update this path as needed
+
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.abspath(os.path.join(BASE_DIR, "../models/model/10-23-2024_1227AM_SVMmodel.pkl"))
+SCALER_PATH = os.path.abspath(os.path.join(BASE_DIR, "../models/scaler/10-23-2024_1227AM_scaler.pkl"))
+model = joblib.load(MODEL_PATH)
+
+print(BASE_DIR)
+print(f"Model path: {MODEL_PATH}")
+print(f"Scaler path: {SCALER_PATH}")
 
 # Load the model
 def load_model():
@@ -55,9 +65,6 @@ def main():
         'time': time
     }
 
-    # Print all the input values
-    print(user_input)
-
     def predict_new_patient(scaler, svm_model, new_patient_data):
         
         # Scale the new data using the same scaler
@@ -76,6 +83,7 @@ def main():
     scaler = load_scaler()
     
     if st.button("Predict"):
+        print(user_input)
         prediction = predict_new_patient(scaler, model, input_df)  # Use the scaled input for prediction
         print(prediction)
         result = "Heart Failure" if prediction[0] == 1 else "No Heart Failure"
